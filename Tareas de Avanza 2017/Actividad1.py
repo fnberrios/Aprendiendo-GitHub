@@ -88,12 +88,12 @@ class Menu:
                 if (automovil_movil.estado == estado):
                     if (automovil_movil.transmicion == transmicion):
                         if (automovil_movil.marca == marca):
-                            if (( int(automovil_movil.precio) <= precio_min) and ( int(automovil_movil.precio) <= precio_max)):
-                                if (( int(utomovil_movil.ano) <= ano_min) and ( int(automovil_movil.ano) <= ano_max)):
+                            if ( ( precio_min <= int(automovil_movil.precio) ) and ( int(automovil_movil.precio) <= precio_max) ):
+                                if ( ( ano_min <= int(automovil_movil.ano) ) and ( int(automovil_movil.ano) <= ano_max)):
                                     print("si")
-                                    print(""" Estado: {0} | Transmción: {1} | Marca: {2} | Dueño: {3} | Año: {4}                                            Precio:
+                                    print(""" Estado: {0} | Transmción: {1} | Marca: {2} | Dueño: {3} | Año: {4} | Precio: {5}
                                               """.format(automovil_movil.estado,automovil_movil.transmicion,automovil_movil.marca,
-                                                        automovil_movil.dueno,automovil_movil.ano))
+                                                        automovil_movil.dueno,automovil_movil.ano, automovil_movil.precio))
 
 
     def cambiar_precio(self): ## 1. EL PRECIO DEBE SER DIVISIBLE POR $500.000
@@ -131,6 +131,7 @@ class Menu:
         print("Gracias por usar nuestro Servicio")
         sys.exit(0)
 
+# TODOS
 
 s1_n1 = Automovil("1","Lexus","2010","z1","AT","300000","nuevo", [])
 s1_n2 = Automovil("2","Toyota","2011","Corola","MT","100000","nuevo", [])
