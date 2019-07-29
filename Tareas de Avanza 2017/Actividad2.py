@@ -14,9 +14,7 @@ class Animales:
     egoista = {'sueño': 12, 'juego_ind': 5, 'juego_grup': 1, 'comidas': 4, 'regaloneo': 2}
     '''
 
-
-
-    animales_list = []
+    animales_list = list()
 
     def __init__(self, expresion='', nombre='', color='' , **kwargs):
         super().__init__(**kwargs)
@@ -24,8 +22,10 @@ class Animales:
         self.color = color
         self.expresion = expresion
 
-        self.jugueton = array([8, 1, 7, 4, 4])
-        self.egoista = array([12, 5, 1, 4, 2])
+        self.jugueton = array([8.0, 1.0, 7.0, 4.0, 4.0])
+        self.egoista = array([12.0, 5.0, 1.0, 4.0, 2.0])
+
+        self.personalidad = 0 ## 1 jugueton 2 egoista
 
         Animales.animales_list.append(self)
 
@@ -41,7 +41,7 @@ class Animales:
         return 0
 
 
-    @staticmethod
+    #@property
     def calculos(self):
         sueno = []
         juego_ind = []
@@ -49,7 +49,7 @@ class Animales:
         comidas = 0
         horas_reg = 0
 
-        for elemento in animales_list:
+        for elemento in Animales.animales_list:
 
             sueno.append(elemento.estadistica[0])
             juego_ind.append(elemento.estadistica[1])
@@ -59,9 +59,10 @@ class Animales:
 
         print("Horas de sueño minimas: {}".format(min(sueno)))
         print("Horas de juego individual mínimas: {}".format(min(juego_ind)))
-        print("Horas de juego grupal máximo: {}".formart(max(juego_grupal)))
+        print("Horas de juego grupal máximo: {}".format(max(juego_grupal)))
         print("Cantidad de Comidas Diarias: {}".format(comidas))
-        print("Cantidad de Horas de regaloneo: {}",format(horas_reg))
+        print("Cantidad de Horas de regaloneo: {}".format(horas_reg))
+
 
 
 
@@ -73,11 +74,22 @@ class Perros(Animales):
         print("Guau!! Guau!!")
 
     def jugar(self):
-        print("Tírame la pelota :)")
+        if (self.personalidad == 1):
+            print("Quiero Jugar")
+            print("Tírame la pelota :)")
+            self.ladrar()
+        else:
+            print("Tírame la pelota :)")
+
 
     def comer(self):
-        print("Mami :) Quiero comeeeerr!!")
+        if (self.personalidad == 2):
+            print("Quiero Comida")
+            print("Mami :) Quiero comeeeerr!!")
+            self.ladrar()
 
+        else:
+            print("Mami :) Quiero comeeeerr!!")
 
 
 class Gatos(Animales):
@@ -88,10 +100,22 @@ class Gatos(Animales):
         print("Miauuu!! Miauuu!")
 
     def jugar(self):
-        print("Humano, ahora, juguemos.")
+        if (self.personalidad == 1):
+            print("Quiero Jugar")
+            print("Humano, ahora, juguemos.")
+            self.maullar()
+        else:
+            print("Humano, ahora, juguemos.")
+
 
     def comer(self):
-        print("El pellet es horrible. Dame comida en lata")
+        if (self.personalidad == 2):
+            print("Quiero Comida")
+            print("El pellet es horrible. Dame comida en lata")
+            self.maullar()
+
+        else:
+            print("El pellet es horrible. Dame comida en lata")
 
 
 
@@ -103,13 +127,16 @@ class SiamePUC(Gatos):
     def __init__(self, sexo='', **kwargs):
         super().__init__(**kwargs)
         self.sexo = sexo.lower()
-
+        self.personalidad = 2 ## egoista
 
         if (self.sexo == "hembra"):
-            self.estadistica = self.egoista*1.5
+            self.estadistica = self.egoista*1.5*(float(self.expresion))
 
         elif (self.sexo == "macho"):
-            self.estadistica = self.egoista*1
+            self.estadistica = self.egoista*1*(float(self.expresion))
+
+    def __str__(self):
+        return ("-----------Me llamó {} soy {} y tengo el pelo color {}----------- ".format(self.nombre,self.sexo, self.color))
 
 
 
@@ -121,12 +148,17 @@ class GoldenPUC(Perros):
     def __init__(self, sexo='', **kwargs):
         super().__init__(**kwargs)
         self.sexo = sexo.lower()
+        self.personalidad = 1
 
         if (self.sexo == "hembra"):
-            self.estadistica = self.jugueton
+            self.estadistica = self.jugueton*(float(self.expresion))
 
         elif (self.sexo == "macho"):
-            self.estadistica = self.jugueton*1.1
+            self.estadistica = self.jugueton*1.1*(float(self.expresion))
+
+    def __str__(self):
+        return ("----------Me llamó {} soy {} y tengo el pelo color {} --------------".format(self.nombre,self.sexo, self.color))
+
 
 
 class PUCTerrier(Perros):
@@ -137,18 +169,35 @@ class PUCTerrier(Perros):
     def __init__(self, sexo='', **kwargs):
         super().__init__(**kwargs)
         self.sexo = sexo.lower()
+        self.personalidad = 2
 
 
         if (self.sexo == "hembra"):
-            self.estadistica = self.egoista*1
+            self.estadistica = self.egoista*1*(float(self.expresion))
 
         elif (self.sexo == "macho"):
-            self.estadistica = self.egoista*1.2
+            self.estadistica = self.egoista*1.2*(float(self.expresion))
+
+    def __str__(self):
+        return ("--------Me llamó {} soy {} y tengo el pelo color {} ---------".format(self.nombre,self.sexo, self.color))
+
+
 
 ##########################################################################
 
 
-uno = SiamePUC(expresion=0.5, nombre="Mara", color="Blanco", sexo="Hembra")
-print(uno.sexo)
-print(uno.estadistica)
-uno.calculos
+
+
+
+if __name__ == '__main__':
+    animals = list()
+    animals.append(GoldenPUC(expresion=0.5, nombre="Mara", color="Blanco", sexo="Hembra"))
+    animals.append(GoldenPUC(expresion=0.9, nombre="Eddie", color="Rubio", sexo="Macho"))
+    animals.append(SiamePUC(expresion=0.9, nombre="Felix", color="Naranjo", sexo="Hembra"))
+    animals.append(PUCTerrier(expresion=0.8, nombre="Betty", color="Café", sexo="Hembra"))
+
+    for a in animals:
+        print(a)
+        a.jugar()
+        a.comer()
+    a.calculos()
