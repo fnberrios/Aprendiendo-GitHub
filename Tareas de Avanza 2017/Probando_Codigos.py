@@ -1,45 +1,57 @@
-# Aquí estamos extendiendo y especializando la clase lista estándar. Tiene todos los métodos de la lista más los definidos por
-# nosotros. Recordar que para nombrar las clases se utiliza notación CamelCase.
-class ContactList(list):
+from numpy import *
+class AddressHolder:
 
-    # buscar es un método específico de esta sub-clase
-    def buscar(self, nombre):
-        matches = []
 
-        for contacto in self:
-            if nombre in contacto.nombre:
-                matches.append(contacto)
 
-        return matches
+    def __init__(self, calle='', ciudad='', numero='', comuna='',**kwargs):
+        super().__init__(**kwargs)
+        self.calle = calle
+        self.ciudad = ciudad
+        self.comuna = comuna
+        self.numero = numero
+        self.jugueton = array([8, 1, 7, 4, 4])
+        self.egoista = array([12, 5, 1, 4, 2])
 
 
 class Contacto:
 
-    # Contacto se compone de una lista de contactos del tipo ContactList
-    # contactos_list = [] #así sería para usar una lista común y corriente
-    contactos_list = ContactList()
 
-    def __init__(self, nombre, email):
+
+    contactos_list = []
+
+    def __init__(self, nombre = '', email = '', **kwargs):
+        super().__init__(**kwargs)
         self.nombre = nombre
         self.email = email
-        Contacto.contactos_list.append(self) # el método append() es heredado de la clase List()
+        self.i = 0
 
 
-# Familiar es una clase especializada de contacto que permite incluir el tipo de relación
-class Familiar(Contacto):
+        Contacto.contactos_list.append(self)
 
-    def __init__(self, nombre, email, relacion): # Overriding sobre el método __init__()
-        super().__init__(nombre, email) # Obtiene la instancia del padre y llama a su funcion __init__
-        self.relacion = relacion
+        if (self.i == 0):
+            self.nombre = "FRANCO"
 
 
-p1 = Familiar(nombre = "Jorge Gomez", email = "jc@hotmail.com", relacion = "padre")
-p2 = Contacto(nombre = "Jorge Gonzales", email = "jg@gmail.com")
-p3 = Familiar(nombre = "Pablo Gomez", email = "pab_g@gmail.com", relacion = 'primo')
 
-L = [c.nombre for c in p1.contactos_list.buscar("Jorge")]
-print("L {}".format(L))
+class Cliente(Contacto, AddressHolder):
 
-print('[', end='')
-print(*L, sep=', ', end='')
-print(']')
+    def __init__(self, telefono='', **kwargs):
+        super().__init__(**kwargs)
+        self.telefono = telefono
+        self.nuevo = self.jugueton*3
+
+
+
+
+
+
+c = Cliente(nombre = 'Juan Perez', email = 'jp@gmail.com', telefono = '23542331',
+            calle = 'Pedro de Valdivia', numero = '231', comuna = 'Providencia', ciudad = 'Santiago')
+
+print(c.nombre)
+print(c.jugueton)
+print(c.nuevo)
+print(c.nuevo[0])
+comida =0
+comida += 1
+print(comida)
