@@ -25,5 +25,5 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 Please make sure to update tests as appropriate.
 
-## Link para Editar README
+## Link para Crear README
 [Link](https://github.com/fnberrios/Aprendiendo-GitHub/new/master?readme=1)
