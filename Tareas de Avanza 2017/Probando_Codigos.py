@@ -3,3 +3,16 @@ from random import randint, uniform,random
 
 
 print("Ahora estamos probando VS Code")
+print('''ESTAMOS MAQUINAS
+AJJAJAJA
+LKASDFLAKDJFASDFASD
+ADFAS
+DFASDF
+ASD
+FAS
+DF
+ASD
+FA
+SDFA
+SD
+FASDF''')
